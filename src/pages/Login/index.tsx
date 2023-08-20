@@ -9,9 +9,10 @@ import {
 import { message } from 'antd';
 import { history } from 'umi';
 import s from './index.less';
+import { API } from '@/services/demo/typings';
 const LoginPage: React.FC = () => {
   const [messageApi, contextHolder] = message.useMessage();
-  const handleSubmit = async (values: API.LoginParams) => {
+  const handleSubmit = async (values: API.loginParams) => {
       const res = await login(values);
       if (res.code === 200) {
         localStorage.setItem('token', res.data.token);
@@ -38,7 +39,7 @@ const LoginPage: React.FC = () => {
           title="HTTP接口管理平台"
           subTitle="高效的接口管理平台"
           onFinish={async (values) => {
-            await handleSubmit(values as API.LoginParams);
+            await handleSubmit(values as API.loginParams);
           }}
         >
           <ProFormText

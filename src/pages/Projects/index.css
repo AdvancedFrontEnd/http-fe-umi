@@ -1,15 +1,13 @@
 .container {
   margin-block: 30px;
 }
-
-.avatarContainer{
+.avatarContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   margin-right: 50px;
-  // background-color: aqua;
-  > .userName{
-    margin-left: 5px;
-  }
+}
+.avatarContainer > .userName {
+  margin-left: 5px;
 }

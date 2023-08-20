@@ -2,6 +2,10 @@
 // 该文件由 OneAPI 自动生成，请勿手动修改！
 import { BasicInfoType } from '@/models/interfaceModel';
 declare namespace API {
+  type CurrentUser={
+    userName?: string 
+    userAvatar?: string
+  }
   interface BasicResponse {
     code : number;
     msg : string;

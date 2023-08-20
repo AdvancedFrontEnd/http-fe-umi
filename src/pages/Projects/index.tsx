@@ -1,6 +1,6 @@
-import { PlusOutlined,CloudOutlined, UploadOutlined } from '@ant-design/icons';
+import { PlusOutlined,CloudOutlined, UploadOutlined, MoreOutlined, LogoutOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
-import { Button, Form, Input, Modal,Space, Upload, message } from 'antd';
+import { Avatar, Button, Dropdown, Form, Input, Menu, MenuProps, Modal,Space, Spin, Upload, message } from 'antd';
 import CreatedProject from './components/CreatedProject';
 import s from './index.less';
 import { createProject } from '@/services/demo/ProjectsController';
@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { history } from 'umi';
 import JoinedProject from './components/JoinedProject';
 import { API } from '@/services/demo/typings';
+import { useModel } from '@umijs/max';
 
 interface collectionCreateFormProps {
   type:number;
@@ -82,6 +83,58 @@ const CreateProjectForm: React.FC<collectionCreateFormProps> = ({type,open,onCre
   );
 };
 
+const RightContent: React.FC  = () => {
+  const { initialState, setInitialState } = useModel('@@initialState');
+  const { currentUser } = initialState || {};
+  // const loading = (
+  //   <span>
+  //   {/* <span className={`${styles.action} ${styles.account}`}> */}
+  //     <Spin
+  //       size="small"
+  //       style={{
+  //         marginLeft: 8,
+  //         marginRight: 8,
+  //       }}
+  //     />
+  //   </span>
+  // );
+
+  // if (!initialState) {
+  //   return loading;
+  // }
+
+  // if (!currentUser || !currentUser.userName) {
+  //   return loading;
+  // }
+
+  const onLogout = ()=>{
+    console.log('退出登录');
+    setInitialState(() => ({currentUser: undefined }));
+    history.push('/login');
+    localStorage.setItem('token', '');
+    return;
+  }
+  const items : MenuProps['items']  = [
+    {
+      key: 'userCenter',
+      label:(
+        <Button size='small'>
+          <LogoutOutlined onClick={onLogout}/>退出登录
+        </Button>
+      )
+    }
+  ];
+
+  return (<>
+   <Dropdown menu={{items}} >
+    <div className={s.avatarContainer}>
+      <Avatar size="small" src={currentUser && currentUser.userAvatar} alt="avatar" />
+      <span className={s.userName}>{currentUser && currentUser.userName}</span>
+    </div>
+    </Dropdown>
+  </>)
+}
+
 const ProjectsPage: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [type, setType] = useState(0);
@@ -96,10 +149,12 @@ const ProjectsPage: React.FC = () => {
       key: 'joined',
     },
   ];
+  
   const contentList = {
     created: <CreatedProject/>, // 对应标签页的内容组件
     joined: <JoinedProject />,
   };
+
   const tabBarExtraContent = ()=>{
     return (
       <>
@@ -150,6 +205,7 @@ const ProjectsPage: React.FC = () => {
         tabList={tabList}
         tabBarExtraContent={tabBarExtraContent()}
         onTabChange={(key)=>{setActiveTab(key)}}
+        extra={RightContent()}
       >
       </PageContainer>
       {contentList[activeTab]}

@@ -1,9 +1,11 @@
 /* eslint-disable */
 // 该文件由 OneAPI 自动生成，请勿手动修改！
 import { request } from '@umijs/max';
+import { API } from './typings';
 
-export async function login(body: API.LoginParams) {
-  return request<API.LoginRespnse>('/user/login', {
+export async function login(body: API.loginParams) {
+
+  return request<API.loginRespnse>('/user/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -12,24 +14,10 @@ export async function login(body: API.LoginParams) {
   });
 }
 
-/** 此处后端没有提供注释 GET /api/v1/queryUserList */
-export async function queryUserList(
-  params: {
-    // query
-    /** keyword */
-    keyword?: string;
-    /** current */
-    current?: number;
-    /** pageSize */
-    pageSize?: number;
-  },
-  options?: { [key: string]: any },
-) {
-  return request<API.Result_PageInfo_UserInfo__>('/api/v1/queryUserList', {
+/** 获取当前的用户 GET /api/currentUser */
+export async function queryCurrentUser(options?: { [key: string]: any }) {
+  return request<API.BasicResponse>('/api/currentUser', {
     method: 'GET',
-    params: {
-      ...params,
-    },
     ...(options || {}),
   });
 }

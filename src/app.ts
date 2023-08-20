@@ -1,9 +1,35 @@
-// 运行时配置
-
-// 全局初始化数据配置，用于 Layout 用户信息和权限初始化
-// 更多信息见文档：https://umijs.org/docs/api/runtime-config#getinitialstate
-export async function getInitialState(): Promise<{ name: string }> {
-  return { name: '@umijs/max' };
+import { queryCurrentUser } from "./services/demo/UserController";
+import { API } from "./services/demo/typings";
+import { history } from 'umi';
+const loginPath = '/login';
+export async function getInitialState(): Promise<{
+  currentUser?: API.CurrentUser;
+  loading?: boolean;
+  fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
+ }> {
+  const fetchUserInfo = async () => {
+    try {
+      const res = await queryCurrentUser();
+      console.log("运行时请求",res.data);
+      if(res.code === 200){
+        return res.data;
+      }   
+    } catch (error) {
+      history.push(loginPath);
+    }
+    return undefined;
+  };
+  // 如果不是登录页面，执行
+  if (history.location.pathname !== loginPath) {
+    const currentUser = await fetchUserInfo();
+    return {
+      fetchUserInfo,
+      currentUser,
+    };
+  }
+  return {
+    fetchUserInfo,
+  };
 }
 
 export const layout = () => {

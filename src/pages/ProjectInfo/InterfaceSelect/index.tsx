@@ -7,14 +7,14 @@ import { useLocation,useModel } from "@umijs/max";
 import { API } from "@/services/demo/typings";
 import { history } from 'umi';
 const { Search } = Input;
-const location = useLocation();
-const [form] = Form.useForm();
+
 
 const InterfaceSelect = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [treeData, setTreeData] = useState<API.InterfaceListItem[]>();
   const [openType, setOpenType] = useState('add');
-  
+  const location = useLocation();
+  const [form] = Form.useForm();
   const { setAddInterfaceMode,setInterfaceId } = useModel('interfaceModel', (model) => model);
   const [projectId,setProjectId] = useState<number>(0);
   
