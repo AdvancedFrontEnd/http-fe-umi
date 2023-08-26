@@ -2,3 +2,26 @@
   height: 100px;
   padding: 0 35px;
 }
+
+.container-input {
+  margin-top: 10px;
+}
+
+.container-btn {
+  float: right;
+  margin-bottom: 8px;
+}
+
+.container-font {
+  color: rgba(16, 24, 40, 24%);
+  margin: 3px 0 20px;
+}
+
+.container-authority {
+  margin-right: 20px;
+}
+
+.container-copy {
+  width: 100%;
+  margin-top: 20px;
+}
