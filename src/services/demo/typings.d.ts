@@ -1,12 +1,12 @@
 /* eslint-disable */
 // 该文件由 OneAPI 自动生成，请勿手动修改！
 
-import { BasicInfoType, InterfaceProps, ReqType } from '@/models/interfaceModel';
+import { InterfaceProps } from '@/models/interfaceModel';
 
 declare namespace API {
   interface BasicResponse {
-    code : number;
-    msg : string;
+    code: number;
+    msg: string;
     data: Record<string, any>;
   }
 
@@ -14,10 +14,12 @@ declare namespace API {
     userAccount: string;
     userPassword: number;
   }
-
-  interface loginRespnse extends BasicResponse {
-
+  interface registerParams {
+    userAccount: string;
+    userPassword: number;
+    userName: string;
   }
+  interface loginRespnse extends BasicResponse {}
 
   interface projectList {
     id: number;
@@ -45,27 +47,25 @@ declare namespace API {
     data: Record<string, any>;
   }
 
-
-  interface InterfaceInfo extends BasicResponse{
-    data: InterfaceInfoData
+  interface InterfaceInfo extends BasicResponse {
+    data: InterfaceInfoData;
   }
 
-  interface InterfaceListItem{
+  interface InterfaceListItem {
     title: string;
     key: number;
     children?: InterfaceListItem[];
     isLeaf?: boolean;
   }
 
-  interface InterfaceList extends BasicResponse{
-    data : InterfaceListItem[];
+  interface InterfaceList extends BasicResponse {
+    data: InterfaceListItem[];
     // data: Record<string, any>;
   }
 
-  
   interface InterfaceInfo {
-    code: number,
-    msg: string,
-    data: InterfaceProps | null
+    code: number;
+    msg: string;
+    data: InterfaceProps | null;
   }
 }

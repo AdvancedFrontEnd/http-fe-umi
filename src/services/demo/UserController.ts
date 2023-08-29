@@ -2,6 +2,16 @@
 // 该文件由 OneAPI 自动生成，请勿手动修改！
 import { request } from '@umijs/max';
 
+export async function register(body: API.LoginParams) {
+  return request<API.LoginRespnse>('/user/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+  });
+}
+
 export async function login(body: API.LoginParams) {
   return request<API.LoginRespnse>('/user/login', {
     method: 'POST',
