@@ -10,16 +10,18 @@ declare namespace API {
     data: Record<string, any>;
   }
 
-  interface loginParams {
+  interface LoginParams {
     userAccount: string;
     userPassword: number;
   }
-  interface registerParams {
+
+  interface RegisterParams {
     userAccount: string;
     userPassword: number;
     userName: string;
   }
-  interface loginRespnse extends BasicResponse {}
+
+  export interface LoginRespnse extends BasicResponse {}
 
   interface projectList {
     id: number;
@@ -69,3 +71,5 @@ declare namespace API {
     data: InterfaceProps | null;
   }
 }
+
+export default API;

@@ -1,4 +1,5 @@
 import { login, register } from '@/services/demo/UserController';
+import API from '@/services/demo/typings';
 import { LockOutlined, MobileOutlined, UserOutlined } from '@ant-design/icons';
 import {
   LoginForm,
@@ -6,20 +7,15 @@ import {
   ProFormCheckbox,
   ProFormText,
 } from '@ant-design/pro-components';
-
-import { API } from '@/services/demo/typings';
-import { message, Tabs } from 'antd';
+import { Tabs, message } from 'antd';
+import { useState } from 'react';
 import { history } from 'umi';
 import s from './index.less';
-// import InterfaceEdit from '@/components/InterfaceEdit';
-// import { Button } from 'node_modules/antd/es/index';
-// import { Button } from 'antd';
 
-import { useState } from 'react';
 const LoginPage: React.FC = () => {
   const [activeTab] = useState('login');
   const [messageApi, contextHolder] = message.useMessage();
-  const handleLoginSubmit = async (values: API.loginParams) => {
+  const handleLoginSubmit = async (values: API.LoginParams) => {
     const res = await login(values);
     if (res.code === 200) {
       localStorage.setItem('token', res.data.token);
@@ -35,7 +31,7 @@ const LoginPage: React.FC = () => {
       });
     }
   };
-  const handleRegisterSubmit = async (values: API.registerParams) => {
+  const handleRegisterSubmit = async (values: API.RegisterParams) => {
     // 注册逻辑
     const res = await register(values);
     if (res.code === 200) {
@@ -72,10 +68,8 @@ const LoginPage: React.FC = () => {
               logo="https://github.githubassets.com/images/modules/logos_page/Octocat.png"
               title="HTTP接口管理平台"
               subTitle="高效的接口管理平台"
-              onFinish={async (values) => {
+              onFinish={async (values: any) => {
                 await handleFormSubmit(values);
-
-                // await handleSubmit(values as API.LoginParams);
               }}
             >
               <Tabs>
