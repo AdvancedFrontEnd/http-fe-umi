@@ -153,7 +153,9 @@ const InterfaceSelect = ({ needFlush }: { needFlush: boolean }) => {
         {
           key: `${tabItems.length + 1}`,
           label: res.data.name,
-          children: <InterfaceEdit id={res.data._id} onSave={save} onRun={run} />,
+          children: (
+            <InterfaceEdit id={res.data._id} onSave={save} onRun={run} />
+          ),
         },
       ]);
       message.success(res.msg);
@@ -173,7 +175,7 @@ const InterfaceSelect = ({ needFlush }: { needFlush: boolean }) => {
     setActiveTab(`${tabItems.length + 1}`);
   };
 
-  const titleRender = (node:any) => {
+  const titleRender = (node: any) => {
     // const { setAddInterfaceMode } = useModel('interfaceModel', (model) => model);
     return (
       <>
