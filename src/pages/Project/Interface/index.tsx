@@ -1,10 +1,10 @@
-import { useModel} from '@umijs/max';
+import { TabsProps } from '@/models/interfaceShowModel';
+import { useModel } from '@umijs/max';
 import { Tabs } from 'antd';
 import { useEffect } from 'react';
 import InterfaceSelect from './Components/InterfaceSelect';
 import Landing from './Components/Landing';
 import styles from './index.less';
-import { TabsProps } from '@/models/interfaceShowModel';
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
 const Interface = () => {
@@ -27,18 +27,23 @@ const Interface = () => {
   }, []);
   const add = () => {
     const newActiveKey = `${tabItems.length + 1}`;
-    setTabItems([...tabItems, { label: '引导页', children: <Landing /> , key: newActiveKey }]);
+    setTabItems([
+      ...tabItems,
+      { label: '引导页', children: <Landing />, key: newActiveKey },
+    ]);
     setActiveTab(newActiveKey);
   };
   const remove = (targetKey: TargetKey) => {
     let newActiveKey = activeTab;
     let lastIndex = -1;
-    tabItems.forEach((item: TabsProps, i:number) => {
+    tabItems.forEach((item: TabsProps, i: number) => {
       if (item.key === targetKey) {
         lastIndex = i - 1;
       }
     });
-    const newPanes = tabItems.filter((item: TabsProps) => item.key !== targetKey);
+    const newPanes = tabItems.filter(
+      (item: TabsProps) => item.key !== targetKey,
+    );
     if (newPanes.length && newActiveKey === targetKey) {
       if (lastIndex >= 0) {
         newActiveKey = newPanes[lastIndex].key;
@@ -48,7 +53,7 @@ const Interface = () => {
     }
     setTabItems(newPanes);
     setActiveTab(newActiveKey);
-  }
+  };
   const onEdit = (
     targetKey: React.MouseEvent | React.KeyboardEvent | string,
     action: 'add' | 'remove',
@@ -56,13 +61,13 @@ const Interface = () => {
     if (action === 'remove') {
       remove(targetKey);
     } else {
-      add()
+      add();
     }
   };
   return (
     <div className={styles.container}>
       <div className={styles.leftContent}>
-        <InterfaceSelect  needFlush={needFlush}/>
+        <InterfaceSelect needFlush={needFlush} />
       </div>
       <div className={styles.rightContent}>
         <Tabs
