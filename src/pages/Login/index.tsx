@@ -13,7 +13,7 @@ import { history } from 'umi';
 import s from './index.less';
 
 const LoginPage: React.FC = () => {
-  const [activeTab] = useState('login');
+  const [activeTab, setActiveTab] = useState('login');
   const [messageApi, contextHolder] = message.useMessage();
   const handleLoginSubmit = async (values: API.LoginParams) => {
     const res = await login(values);
@@ -72,7 +72,10 @@ const LoginPage: React.FC = () => {
                 await handleFormSubmit(values);
               }}
             >
-              <Tabs>
+              <Tabs
+                activeKey={activeTab}
+                onChange={(activeKey) => setActiveTab(activeKey)}
+              >
                 <Tabs.TabPane key={'login'} tab={'登录'}>
                   <>
                     <ProFormText

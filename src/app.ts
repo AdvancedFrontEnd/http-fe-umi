@@ -16,22 +16,21 @@ export const layout = () => {
   };
 };
 
-
 export const request: RequestConfig = {
   baseURL: 'http://127.0.0.1:3000',
   timeout: 3000,
   // other axios options you want
   errorConfig: {
-    errorHandler(){
-    },
-    errorThrower(){
-    }
+    errorHandler() {},
+    errorThrower() {},
   },
-  requestInterceptors: [(url, options) => {
-    // 请求时携带token信息
-    const token = localStorage.getItem('token');
-    options.headers.authorization = token || ''
-    return {url, options};
-  }],
-  responseInterceptors: []
+  requestInterceptors: [
+    (url, options) => {
+      // 请求时携带token信息
+      const token = localStorage.getItem('token');
+      options.headers.authorization = token || '';
+      return { url, options };
+    },
+  ],
+  responseInterceptors: [],
 };
