@@ -1,9 +1,9 @@
-import { ProTable } from '@ant-design/pro-components';
-import { history } from 'umi';
-import s from './index.less';
-import { useEffect, useState } from 'react';
 import { queryProjectList } from '@/services/demo/ProjectsController';
+import { ProTable } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
+import { useEffect, useState } from 'react';
+import { history } from 'umi';
+import styles from './index.less';
 export type DataSourceType = {
   id: number;
   projectName: string;
@@ -42,19 +42,19 @@ const columns = [
 
 const JoinedProject = () => {
   const [dataSource, setDataSource] = useState<DataSourceType[]>([]);
-  useEffect(()=>{
-    fetchDataSource();
-  },[]);
-  const {setSelectedProject} = useModel('projectModel', (model) => ({
-    setSelectedProject: model.setSelectedProject
+  const { setSelectedProject } = useModel('projectModel', (model) => ({
+    setSelectedProject: model.setSelectedProject,
   }));
   const fetchDataSource = async () => {
     const res = await queryProjectList(1);
     setDataSource(res.data);
-  }
-  
+  };
+  useEffect(() => {
+    fetchDataSource();
+  }, []);
+
   return (
-    <div className={s.container}>
+    <div className={styles.tableBox}>
       <ProTable<DataSourceType>
         dataSource={dataSource}
         rowKey="id"

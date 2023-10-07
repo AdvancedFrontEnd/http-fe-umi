@@ -11,13 +11,13 @@ const routes = [
   {
     path: '/main',
     component: './Main',
-    layout: false,
+    layout: true,
   },
   {
     path: '/project/:id',
     component: './Project',
-    layout: false,
-  }
+    layout: true,
+  },
 ];
 
 export default routes;
